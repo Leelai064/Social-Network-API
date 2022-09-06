@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "epxress": "^0.0.1-security",
+    "moment": "^2.29.4",
+    "mongodb": "^4.9.1",
+    "mongoose": "^6.5.4"
+  }
+}
