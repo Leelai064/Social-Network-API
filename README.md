@@ -4,7 +4,13 @@
 To better understand web applications that users utilize to communicate their current status, pictures, thoughts, ect., such as Twitter, Facebook, and many more relevant web applications this app was born from that curiosity. Using past technologies learned such as Moment.js, and Express.js this application and furthermore develops my backend skills with Mongo.db and Mongoose otherwise known as No SQL database methods. Insomnia is also utilized to display how the seed data is manifested.
 
 ## Table of Contents
-* ![UserStory](#)
+* [UserStory](#user-story)
+* [Github](#github-repository-url)
+* [Installation](#installation)
+* [AcceptanceCriteria](#acceptance-criteria)
+* [UsageDemo](#usage-demonstration)
+* [UsageSnips](#usage-snips)
+* [TechnologiesUsed](#technologies-used)
 
 ## User Story
 
