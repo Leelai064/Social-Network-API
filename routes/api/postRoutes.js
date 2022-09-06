@@ -1,12 +1,16 @@
 const router = require('express').Router();
 
-const { getAllThoughts, 
+const { getAllPosts, 
     getSinglePost, 
-    createPost, updatePost, deletePost, createReaction, deleteReaction } = require('../../controllers/postController');
+    createPost, 
+    updatePost, 
+    deletePost, 
+    createReaction, 
+    deleteReaction } = require('../controllers/postController');
 
 router.route('/')
-.get(getAllThoughts)
-.post(createThought);
+.get(getAllPosts)
+.post(createPost);
 
 router.route('/:posttId')
 .get(getSinglePost)
@@ -16,7 +20,7 @@ router.route('/:posttId')
 router.route('/:postId/reactions/:reactionId')
 .delete(deleteReaction);
 
-router.route('/:thoughtId/reactions')
+router.route('/:postId/reactions')
 .post(createReaction);
 
 

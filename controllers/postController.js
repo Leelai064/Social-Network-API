@@ -1,27 +1,27 @@
-const { User, Thought } = require('../models');
-
+const { User, Post } = require('../models');
+const { Schema, Types } = require('mongoose');
 module.exports = {
-  getThought(req, res) {
-    Thought.find()
-      .then((thoughts) => res.json(thoughts))
+  getPost(req, res) {
+    Post.find()
+      .then((posts) => res.json(posts))
       .catch((err) => res.status(500).json(err));
   },
-  getSingleThought(req, res) {
-    Thought.findOne({ _id: req.params.thoughtId })
-      .then((thought) =>
-        !thought
+  getSinglePost(req, res) {
+    Post.findOne({ _id: req.params.postId })
+      .then((Post) =>
+        !post
           ? res.status(404).json({ message: 'No post with that ID' })
-          : res.json(thought)
+          : res.json(post)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new thought
-  createThought(req, res) {
-    Thought.create(req.body)
-    .then((thought) => {
+  // create a new post
+  createPost(req, res) {
+    Post.create(req.body)
+    .then((post) => {
         return User.findOneAndUpdate(
             { _id: req.body.userId },
-            { $push: { thoughts: thought._id } },
+            { $push: { posts: post._id } },
             { new: true }
         );
     })
@@ -30,7 +30,7 @@ module.exports = {
     ? res
         .status(404)
         .json({ message: 'Post created, no user id found' })
-    : res.json('Created the thought')
+    : res.json('Created the post')
     )
     .catch((err) => {
         console.log(err);
@@ -38,9 +38,9 @@ module.exports = {
     });
 },
   // Update the User
-  updateThought(req, res) {
-    Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId},
+  updatePost(req, res) {
+    Post.findOneAndUpdate(
+      { _id: req.params.postId},
       { $set: req.body},
       { runValidators: true, new: true})
       .then((err, result) => {
@@ -49,15 +49,15 @@ module.exports = {
       }
       )
   },
-  deleteThought(req, res){
-    Thought.findOneAndDelete(
-        { _id: req.params.thoughtId })
+  deletPost(req, res){
+    Post.findOneAndDelete(
+        { _id: req.params.postId })
         .then((err, result) => {
             if (!result) {
                 res.status(200).json({
-                    message: `Post deleted: ${req.params.thoughtId} successfully` 
+                    message: `Post deleted: ${req.params.postId} successfully` 
                 });
-                console.log(`Post deleted: ${req.params.thoughtId} successfully`);
+                console.log(`Post deleted: ${req.params.postId} successfully`);
               } else {
                 console.log('Uh Oh, something went wrong');
                 res.status(500).json({ error: 'Error 404' });
@@ -67,7 +67,7 @@ module.exports = {
   },
   addReaction(req, res){
     User.findOneAndUpdate(
-        { _id: req.params.thoughtId },
+        { _id: req.params.postId },
         { $push: { reactions: req.body } },
         { new: true})
         .then((err, result) => {
@@ -77,7 +77,7 @@ module.exports = {
   },
   deleteReaction(req, res) {
     User.findOneAndDelete(
-        { _id: req.params.thoughtId  },
+        { _id: req.params.postId  },
         { $pull: { reactions: { _id: req.params.reactionId } } },
         { runValidators: true, new: true })
         .then((err, result) => {

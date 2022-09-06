@@ -15,12 +15,12 @@ const userSchema = new Schema(
       unique: true,
       required: true,
       trim: true,
-      match: [/.+@.+\..+/, 'Must match an email address!'],
+      match: [/.+@.+\..+/, 'Must match an email address!'], //regex String
       
     },
-    thoughts: {
+    posts: {
       type: Schema.Types.ObjectId,
-      ref: 'Thought',
+      ref: 'Post',
     },
     friends: [
     {

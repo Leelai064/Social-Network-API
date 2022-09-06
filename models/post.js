@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose');
 
 const Reaction = require('./Reaction')
 
-const thoughtSchema = new Schema(
+const postSchema = new Schema(
     {
         text: {
             type: String,
@@ -24,10 +24,10 @@ const thoughtSchema = new Schema(
         id: false,
     }
 )
-thoughtSchema.virtual('reactionCount').get(function () {
+postSchema.virtual('reactionCount').get(function () {
     return this.reactions.length
 });
 
-const Thought = model('Post', postSchema)
+const Post = model('Post', postSchema)
 
 module.exports = Post
