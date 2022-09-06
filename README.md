@@ -49,7 +49,11 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 
 ## Usage Demonstration
 
+
+
 ## Usage Snips
+
+![UsageSnips](./assets/InsomniaSnip.png)
 
 ## Technologies Used
 

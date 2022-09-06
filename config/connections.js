@@ -1,10 +1,10 @@
 const {connect, connection} = require("mongoose");
 
-const connectionURI = 
-process.enc.MONGODB_URI || 'mongodb+srv://admin:Lightiskira1!@cluster0.8rtlu1z.mongodb.net/test';
+const connectionURI = process.env.MONGODB_URI || 'mongodb+srv://admin:Lightiskira1!@cluster0.8rtlu1z.mongodb.net/test';
+
 
 connect(connectionURI, {
-    userNewUrlParser: true,
+    useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
