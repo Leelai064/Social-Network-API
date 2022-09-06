@@ -1,7 +1,7 @@
 const { User, Post } = require('../models');
 const { Schema, Types } = require('mongoose');
 module.exports = {
-  getPost(req, res) {
+  getPosts(req, res) {
     Post.find()
       .then((posts) => res.json(posts))
       .catch((err) => res.status(500).json(err));
@@ -49,7 +49,7 @@ module.exports = {
       }
       )
   },
-  deletPost(req, res){
+  deletePost(req, res){
     Post.findOneAndDelete(
         { _id: req.params.postId })
         .then((err, result) => {

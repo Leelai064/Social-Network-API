@@ -1,15 +1,15 @@
 const router = require('express').Router();
 
-const { getAllPosts, 
+const { getPosts, 
     getSinglePost, 
     createPost, 
     updatePost, 
     deletePost, 
-    createReaction, 
-    deleteReaction } = require('../controllers/postController');
+    // createReaction, 
+    deleteReaction } = require('../../controllers/postController');
 
 router.route('/')
-.get(getAllPosts)
+.get(getPosts)
 .post(createPost);
 
 router.route('/:posttId')
@@ -20,8 +20,8 @@ router.route('/:posttId')
 router.route('/:postId/reactions/:reactionId')
 .delete(deleteReaction);
 
-router.route('/:postId/reactions')
-.post(createReaction);
+// router.route('/:postId/reactions')
+// .post(createReaction);
 
 
 module.exports = router;
