@@ -6,7 +6,7 @@ const postSchema = new Schema(
     {
         text: {
             type: String,
-            required: true,,
+            required: true,
             trim:true
         },
         createdAt: { type: Date, default: Date.now },

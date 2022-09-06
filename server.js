@@ -1,7 +1,7 @@
 const routes = require('./routes');
 const express = require ("express");
 const db = require ("./config/connections");
-const PORT = process.emitWarning.port || 3493;
+const PORT = process.emitWarning.port || 3001;
 const app = express();
 
 app.use(routes);
