@@ -17,7 +17,7 @@ const postSchema = new Schema(
             trim:true
             }
         ],
-        reactions: [Reaction]
+        reactions: [reaction]
     },
     {
         toJSON: {
@@ -27,7 +27,7 @@ const postSchema = new Schema(
     }
 )
 postSchema.virtual('reactionCount').get(function () {
-    return this.reactions.length
+    return this.reactions.length;
 });
 
 const Post = model('Post', postSchema)
