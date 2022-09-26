@@ -1,4 +1,4 @@
-const { User, Post } = require('../models');
+const { User, Post } = require('../models/Index');
 const { Schema, Types } = require('mongoose');
 module.exports = {
   getPosts(req, res) {
