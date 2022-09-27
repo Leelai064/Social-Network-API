@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User, Post } = require('../models');
 
 
 
@@ -6,13 +6,8 @@ module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
-      .then(async (users) => {
-        const userObj = {
-          users,
-          
-        };
-        return res.json(userObj);
-      })
+    .select('-__v')
+      .then((users)=> res.json(users))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -43,37 +38,37 @@ module.exports = {
   },
 
 
-    //update user by _id
-    updateUser(req, res) {
-      User.findOneAndUpdate(
-          { _id: req.params.userId },
-          { $set: req.body },
-          { runValidators: true, new: true }
-        )
-          .then((user) =>
-            !user
-              ? res.status(404).json({ message: 'Error 404: User does not match this ID. Please try again!' })
-              : res.json(user)).catch((err) => res.status(500).json(err));
+  //update user by _id
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'Error 404: User does not match this ID. Please try again!' })
+          : res.json(user)).catch((err) => res.status(500).json(err));
   },
 
 
-  // Delete a user and remove them from the thought
+  // Delete a user and remove them from the post
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'Error 404: User cannot be found' })
-          : Thought.findOneAndUpdate(
-              { users: req.params.userId },
-              { $pull: { users: req.params.userId } },
-              { new: true }
-            )
+          : Post.findOneAndUpdate(
+            { users: req.params.userId },
+            { $pull: { users: req.params.userId } },
+            { new: true }
+          )
       )
-      .then((thought) =>
-        !thought
+      .then((post) =>
+        !post
           ? res.status(404).json({
-              message: 'User deleted, but post have been made yet',
-            })
+            message: 'User deleted, but post have been made yet',
+          })
           : res.json({ message: 'User has been deleted! Please create a new one' })
       )
       .catch((err) => {
@@ -96,11 +91,11 @@ module.exports = {
             { _id: req.params.friendId },
             { $addToSet: { friends: req.params.userId } },
             { runValidators: true, new: true }
-        )
-)
-.then(() => res.json({ message: 'You are now friends:' }))
-.catch((err) => res.status(500).json(err))
-   },
+          )
+      )
+      .then(() => res.json({ message: 'You are now friends:' }))
+      .catch((err) => res.status(500).json(err))
+  },
 
 
   // DELETE
@@ -116,12 +111,12 @@ module.exports = {
           : User.findOneAndUpdate(
             { _id: req.params.friendId },
             { $pull: { friends: req.params.userId } },
-            { runValidators: true, new: true }                   
-        )
-)
-.then(() => res.json({ message: 'You friend has been removed:' }))
-.catch((err) => res.status(500).json(err));
-}
+            { runValidators: true, new: true }
+          )
+      )
+      .then(() => res.json({ message: 'You friend has been removed:' }))
+      .catch((err) => res.status(500).json(err));
+  }
 
 }
 //Delete ends here!

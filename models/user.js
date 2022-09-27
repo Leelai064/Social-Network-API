@@ -7,27 +7,27 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      trim: true,
-      max_length: 50,
+      trim: true
     },
     email: {
       type: String,
       unique: true,
       required: true,
-      trim: true,
-      match: [/.+@.+\..+/, 'Must match an email address!'], //regex String
-      
+      match: [/.+@.+\..+/, 'Must match an email address!'],
     },
-    posts: {
-      type: Schema.Types.ObjectId,
-      ref: 'Post',
-    },
+    posts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Post',
+      }
+    ],
     friends: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ]
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      }
+    ],
+
   },
   {
     toJSON: {
@@ -37,6 +37,10 @@ const userSchema = new Schema(
 
   }
 );
+
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+})
 
 const User = model('User', userSchema);
 
