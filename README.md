@@ -49,7 +49,7 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 
 ## Usage Demonstration
 
-![Demo](./assets/insomniaDemo.gif)
+![Demo](./assets/demoWalkthrough.gif)
 
 ## Usage Snips
 
